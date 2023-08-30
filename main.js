@@ -1,0 +1,1 @@
+document.body.appendChild(function(){const t=document.createElement("div");t.innerText="Knights Travails Project";const e=document.createElement("div");return e.innerText="Your task is to build a function knightMoves that shows the shortest possible way to get from one square to another by outputting all squares the knight will stop on along the way.",t.appendChild(e),t}());
