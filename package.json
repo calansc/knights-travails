@@ -1,0 +1,25 @@
+{
+  "name": "knights-travails",
+  "version": "1.0.0",
+  "description": "The Odin Project - Knights Travails Project https://www.theodinproject.com/lessons/javascript-knights-travails",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/calansc/knights-travails.git#main"
+  },
+  "author": "Chad Schroeder",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/calansc/knights-travails/issues"
+  },
+  "homepage": "https://github.com/calansc/knights-travails/tree/main#readme",
+  "devDependencies": {
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  }
+}
