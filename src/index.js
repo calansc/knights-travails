@@ -26,8 +26,40 @@ let possibleMoves = [
   [-2, 1],
   [-1, 2],
 ];
+let fullBoardArray = [];
+function buildBoardArray() {
+  for (let i = 0; i < 8; i++) {
+    let x = arrayX[i];
+    for (let j = 0; j < 8; j++) {
+      let y = arrayY[j];
+      let xy = [x, y];
+      fullBoardArray.push(xy);
+    }
+  }
+  // console.log(fullBoardArray);
+  return fullBoardArray;
+}
+buildBoardArray();
 function fullEdgeList() {
   let fullEdgeList = [];
+  for (let i = 0; i < 8; i++) {}
 }
 
-function currentEdgeList() {}
+function currentEdgeList(currentPosition) {
+  let edgeList = [];
+  for (let i = 0; i < 8; i++) {
+    let x = currentPosition[0] + possibleMoves[i][0];
+    let y = currentPosition[1] + possibleMoves[i][1];
+    let xy = [x, y];
+    edgeList.push(xy);
+  }
+  console.log(edgeList);
+  return edgeList;
+}
+currentEdgeList(knightPos);
+knightPos = [2, 1];
+currentEdgeList(knightPos);
+
+// Searches tree for shortest route from start(x,y) coordinates to
+// end(x,y) coordinates
+function knightMoves(start, end) {}
