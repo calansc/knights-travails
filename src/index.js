@@ -119,7 +119,7 @@ function buildBoardGraph() {
   // return boardGraph;
 }
 buildBoardGraph();
-console.log(boardGraph);
+// console.log(boardGraph);
 
 let chessBoard = {
   A0: { C1: 1, B2: 1 },
@@ -199,6 +199,8 @@ function findShortestPath(graph, startNode, endNode) {
   };
   return results;
 }
+console.log(findShortestPath(boardGraph, "A0", "A1"));
+console.log(findShortestPath(boardGraph, "A7", "H0"));
 
 // console.log(findShortestPath(graph, "start", "finish"));
 // > {
