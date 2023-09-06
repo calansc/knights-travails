@@ -100,19 +100,16 @@ function buildBoardGraph() {
           arrayXY.push(alpha2 + y1);
           // arrayXY.push(alpha2 + y1 + ":1");
           alpha3 = alpha + y;
-          tempDict[arrayXY[0]] = 1;
+          tempDict = {};
+          for (let l = 0; l < arrayXY.length; l++) {
+            tempDict[arrayXY[l]] = 1;
+            boardGraph[alpha3] = tempDict;
+          }
         }
       }
 
-      console.log("{" + alpha + y + ": {" + arrayXY + "}}");
-      // boardGraph = { ...boardGraph, test: { test2: "hi" } };
-      // boardGraph = { ...boardGraph, alpha3: { arrayXY } };
+      // console.log("{" + alpha + y + ": {" + arrayXY + "}}");
 
-      boardGraph[alpha3] = tempDict;
-      // boardGraph = Object.assign(
-      //   { alpha3 { test: "test", arrayXY } },
-      //   boardGraph
-      // );
       // assign format: graph2 = Object.assign({A0: {C1:1,B2:1}},boardGraph)
       // alerts = Object.assign({3: {app:'helloagain_again',message:'yet another message'}}, alerts)
       // boardGraph = Object.assign({ arrayXY }, boardGraph);
