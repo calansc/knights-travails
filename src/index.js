@@ -11,21 +11,12 @@ function component() {
 
 document.body.appendChild(component());
 
-let arrayX = [0, 1, 2, 3, 4, 5, 6, 7];
-let arrayY = [0, 1, 2, 3, 4, 5, 6, 7];
+// let arrayX = [0, 1, 2, 3, 4, 5, 6, 7];
+// let arrayY = [0, 1, 2, 3, 4, 5, 6, 7];
 let knightPos = [0, 0];
 //knight can make up to 8 possible moves:
 //[+2,+1], [+1,+2], [+2,-1], [+1,-2], [-1,-2], [-2,-1], [-2,+1], [-1,+2]
-let possibleMoves = [
-  [2, 1],
-  [1, 2],
-  [2, -1],
-  [1, -2],
-  [-1, -2],
-  [-2, -1],
-  [-2, 1],
-  [-1, 2],
-];
+
 let fullBoardArray = [];
 function buildBoardArray() {
   for (let i = 0; i < 8; i++) {
@@ -53,7 +44,7 @@ function currentEdgeList(currentPosition) {
     let xy = [x, y];
     edgeList.push(xy);
   }
-  // console.log(edgeList);
+  console.log(edgeList);
   return edgeList;
 }
 // currentEdgeList(knightPos);
@@ -67,10 +58,81 @@ function dijkstas(start = [0, 0], end) {
   unvisitedSet = currentEdgeList(start, end);
   console.log(unvisitedSet);
 }
-dijkstas();
+// dijkstas();
 // Searches tree for shortest route from start(x,y) coordinates to
 // end(x,y) coordinates
 function knightMoves(start, end) {}
+
+let possibleMoves = [
+  [2, 1],
+  [1, 2],
+  [2, -1],
+  [1, -2],
+  [-1, -2],
+  [-2, -1],
+  [-2, 1],
+  [-1, 2],
+];
+let arrayX = [0, 1, 2, 3, 4, 5, 6, 7];
+let arrayY = [0, 1, 2, 3, 4, 5, 6, 7];
+let alphaX = ["A", "B", "C", "D", "E", "F", "G", "H"];
+let boardGraph = {};
+let tempDict = {};
+
+function buildBoardGraph() {
+  // each loop adds too object
+  // format "node: { connecting nodes }"
+  // validate within 0-7
+  for (let i = 0; i < arrayX.length; i++) {
+    let x = arrayX[i];
+    let alpha = alphaX[x];
+    let alpha3;
+    for (let j = 0; j < arrayY.length; j++) {
+      let y = arrayY[j];
+      let xy = [x, y];
+      let arrayXY = [];
+      for (let k = 0; k < possibleMoves.length; k++) {
+        let x1 = x + possibleMoves[k][0];
+        let y1 = y + possibleMoves[k][1];
+
+        if (x1 >= 0 && 7 >= x1 && y1 >= 0 && 7 >= y1) {
+          let alpha2 = alphaX[x1];
+          arrayXY.push(alpha2 + y1);
+          // arrayXY.push(alpha2 + y1 + ":1");
+          alpha3 = alpha + y;
+          tempDict[arrayXY[0]] = 1;
+        }
+      }
+
+      console.log("{" + alpha + y + ": {" + arrayXY + "}}");
+      // boardGraph = { ...boardGraph, test: { test2: "hi" } };
+      // boardGraph = { ...boardGraph, alpha3: { arrayXY } };
+
+      boardGraph[alpha3] = tempDict;
+      // boardGraph = Object.assign(
+      //   { alpha3 { test: "test", arrayXY } },
+      //   boardGraph
+      // );
+      // assign format: graph2 = Object.assign({A0: {C1:1,B2:1}},boardGraph)
+      // alerts = Object.assign({3: {app:'helloagain_again',message:'yet another message'}}, alerts)
+      // boardGraph = Object.assign({ arrayXY }, boardGraph);
+      // console.log(boardGraph);
+    }
+  }
+  // return boardGraph;
+}
+buildBoardGraph();
+console.log(boardGraph);
+
+let chessBoard = {
+  A0: { C1: 1, B2: 1 },
+  B0: { A2: 1, C2: 1, D1: 1 },
+  C0: { A1: 1, B2: 1, D2: 1 },
+  D0: { B1: 1, C2: 1 },
+  A1: { C0: 1, C2: 1, B3: 1 },
+};
+
+// console.log(chessBoard);
 
 // Dijkstas practice
 
@@ -82,6 +144,7 @@ let graph = {
   D: { finish: 1 },
   finish: {},
 };
+
 function shortestDistanceNode(distances, visited) {
   let shortest = null;
   for (let node in distances) {
@@ -140,17 +203,17 @@ function findShortestPath(graph, startNode, endNode) {
   return results;
 }
 
-console.log(findShortestPath(graph, "start", "finish"));
+// console.log(findShortestPath(graph, "start", "finish"));
 // > {
 //   	distance: 8
 // 	path: (4) ["start", "A", "D", "finish"]
 // }
-console.log(findShortestPath(graph, "A", "B"));
+// console.log(findShortestPath(graph, "A", "B"));
 // > {
 //   distance: 3
 //   path: (3) ["A", "start", "B"]
 // }
-console.log(findShortestPath(graph, "A", "start"));
+// console.log(findShortestPath(graph, "A", "start"));
 // > {
 // distance: 1
 // path: (2) ["A", "start"]
