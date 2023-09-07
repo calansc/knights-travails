@@ -1,15 +1,4 @@
-import "./style.css";
-function component() {
-  const element = document.createElement("div");
-  element.innerText = "Knights Travails Project";
-  const description = document.createElement("div");
-  description.innerText =
-    "Your task is to build a function knightMoves that shows the shortest possible way to get from one square to another by outputting all squares the knight will stop on along the way.";
-  element.appendChild(description);
-  return element;
-}
-
-document.body.appendChild(component());
+import css from "./style.css";
 
 // let knightPos = [0, 0];
 //knight can make up to 8 possible moves:
@@ -29,6 +18,113 @@ let arrayY = [0, 1, 2, 3, 4, 5, 6, 7];
 let alphaX = ["A", "B", "C", "D", "E", "F", "G", "H"];
 let boardGraph = {};
 let tempDict = {};
+let startPoint = null;
+let endPoint = null;
+
+// function buildHtmlBoard() {
+//   let bw = "whiteSquare";
+//   let squares = document.getElementsByClassName("squares");
+//   for (let i = 0; i < arrayX.length; i++) {
+//     let x = arrayX[i];
+//     if (x & 1) {
+//       bw = "whiteSquare";
+//     } else bw = "blackSquare";
+//     for (let j = 0; j < arrayY.length; j++) {
+//       let y = arrayY[j];
+//       let square = document.createElement("div");
+//       square.classList.add(bw);
+//       if (bw === "whiteSquare") {
+//         bw = "blackSquare";
+//       } else bw = "whiteSquare";
+//       let squareId = alphaX[x] + y;
+//       square.setAttribute("id", squareId);
+//       square.addEventListener(
+//         "click",
+//         function () {
+//           boardListener(squareId);
+//         },
+//         false
+//       );
+//       squares[0].appendChild(square);
+//     }
+//   }
+// }
+function buildHtmlBoard() {
+  let bw = "whiteSquare";
+  let squares = document.getElementsByClassName("squares");
+  for (let i = 0; i < arrayY.length; i++) {
+    let y = arrayY[i];
+    if (y & 1) {
+      bw = "whiteSquare";
+    } else bw = "blackSquare";
+    for (let j = 0; j < arrayX.length; j++) {
+      let x = arrayX[j];
+      let square = document.createElement("div");
+      square.classList.add(bw);
+      if (bw === "whiteSquare") {
+        bw = "blackSquare";
+      } else bw = "whiteSquare";
+      let squareId = alphaX[x] + y;
+      square.setAttribute("id", squareId);
+      square.addEventListener(
+        "click",
+        function () {
+          boardListener(squareId);
+        },
+        false
+      );
+      squares[0].appendChild(square);
+    }
+  }
+  let row = document.getElementsByClassName("row");
+  for (let i = 0; i < alphaX.length; i++) {
+    let rowHeader = document.createElement("div");
+    rowHeader.classList.add("rowHeader");
+    rowHeader.textContent = alphaX[i];
+    row[0].appendChild(rowHeader);
+  }
+  let column = document.getElementsByClassName("column");
+  for (let i = 0; i < arrayY.length; i++) {
+    let columnHeader = document.createElement("div");
+    columnHeader.classList.add("columnHeader");
+    columnHeader.textContent = arrayY[i];
+    column[0].appendChild(columnHeader);
+  }
+}
+buildHtmlBoard();
+
+function boardListener(squareId) {
+  if (startPoint === null) {
+    startPoint = squareId;
+    console.log("start" + squareId);
+  } else if (endPoint === null) {
+    endPoint = squareId;
+    console.log("end" + endPoint);
+    let results = findShortestPath(boardGraph, startPoint, endPoint);
+    console.log(results);
+    startPoint = null;
+    endPoint = null;
+    let distance = document.getElementsByClassName("distance");
+    let path = document.getElementsByClassName("path");
+    distance[0].textContent = "Distance: " + results.distance + " moves";
+    path[0].textContent = "Path: " + results.path;
+  }
+}
+// get reference to squares class, appendChildren.
+// assign each square a black/white class to alternate
+// assign each square an id with its coordinate A0,A1,B0 etc
+
+// function component() {
+//   const element = document.createElement("div");
+//   element.innerText = "Knights Travails Project";
+//   const description = document.createElement("div");
+//   description.innerText =
+//     "Your task is to build a function knightMoves that shows the shortest possible way to get from one square to another by outputting all squares the knight will stop on along the way.";
+//   element.appendChild(description);
+//   return element;
+// }
+
+// document.body.appendChild(component());
 
 function buildBoardGraph() {
   // each loop adds to object
