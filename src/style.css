@@ -61,18 +61,23 @@
     background-color: white;
     height: calc(1/8 * 65vw);
     width: calc(1/8 * 65vw);
+    /* container-type: size;
+    container-name: whiteSquare; */
 }
 .blackSquare {
     background-color: gray;
     height: calc(1/8 * 65vw);
     width: calc(1/8 * 65vw);
+    /* container-type: size;
+    container-name:blackSquare; */
+
 }
 .visited {
     display: grid;
     color:red;
     font-weight: bold;
     text-align: center;
-    font-size: 2.5rem;
+    font-size:calc(1/9 * 65vw);
     align-items: center;
 }
 .results {
