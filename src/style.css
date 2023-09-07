@@ -55,6 +55,7 @@
     margin:0px;
     padding:0px;
     border:0px;
+    overflow:clip;
 }
 .whiteSquare {
     background-color: white;
@@ -65,6 +66,14 @@
     background-color: gray;
     height: calc(1/8 * 65vw);
     width: calc(1/8 * 65vw);
+}
+.visited {
+    display: grid;
+    color:red;
+    font-weight: bold;
+    text-align: center;
+    font-size: 2.5rem;
+    align-items: center;
 }
 .results {
     margin:20px;

@@ -1,4 +1,5 @@
 import css from "./style.css";
+import Knight from "./Chess-Knight.svg";
 
 // let knightPos = [0, 0];
 //knight can make up to 8 possible moves:
@@ -95,20 +96,63 @@ buildHtmlBoard();
 
 function boardListener(squareId) {
   if (startPoint === null) {
+    boardReset();
     startPoint = squareId;
-    console.log("start" + squareId);
+    let start = document.getElementsByClassName("start");
+    start[0].textContent = "Starting Point: " + startPoint;
+    let startImage = document.getElementById(startPoint);
+    let image = new Image();
+    image.src = Knight;
+    startImage.appendChild(image);
+    // console.log("start" + squareId);
   } else if (endPoint === null) {
     endPoint = squareId;
-    console.log("end" + endPoint);
+    let end = document.getElementsByClassName("end");
+    end[0].textContent = "Ending Point: " + endPoint;
+    // console.log("end" + endPoint);
     let results = findShortestPath(boardGraph, startPoint, endPoint);
-    console.log(results);
+    // console.log(results);
+    let endImage = document.getElementById(endPoint);
+    let image = new Image();
+    image.src = Knight;
+    endImage.appendChild(image);
     startPoint = null;
     endPoint = null;
     let distance = document.getElementsByClassName("distance");
     let path = document.getElementsByClassName("path");
     distance[0].textContent = "Distance: " + results.distance + " moves";
     path[0].textContent = "Path: " + results.path;
+    knightBoardDisplay(results);
   }
+}
+
+function knightBoardDisplay(results) {
+  // console.log(results.path);
+  for (let i = 1; i < results.path.length - 1; i++) {
+    // console.log(results.path[i]);
+    let square = document.getElementById(results.path[i]);
+    square.textContent = i;
+    square.classList.add("visited");
+  }
+}
+
+function boardReset() {
+  let whiteSquare = document.getElementsByClassName("whiteSquare");
+  let blackSquare = document.getElementsByClassName("blackSquare");
+  for (let i = 0; i < whiteSquare.length; i++) {
+    whiteSquare.item(i).textContent = "";
+    whiteSquare.item(i).classList.remove("visited");
+  }
+  for (let i = 0; i < blackSquare.length; i++) {
+    blackSquare.item(i).textContent = "";
+    blackSquare.item(i).classList.remove("visited");
+  }
+  let end = document.getElementsByClassName("end");
+  let distance = document.getElementsByClassName("distance");
+  let path = document.getElementsByClassName("path");
+  end[0].textContent = "Ending Point:";
+  distance[0].textContent = "Distance:";
+  path[0].textContent = "Path";
 }
 // get reference to squares class, appendChildren.
 // assign each square a black/white class to alternate
